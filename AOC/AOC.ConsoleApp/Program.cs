@@ -1,8 +1,10 @@
 ﻿
-var lines = ReadLines("../../../Day01/input.txt");
-//var lines = ReadLines("../../../Day01/input_small.txt");
+using AOC.ConsoleApp.Day02;
 
-ISolver solver = new Day01Solver();
+var lines = ReadLines("../../../Day02/input.txt");
+//var lines = ReadLines("../../../Day02/input_small.txt");
+
+ISolver solver = new Day02Solver();
 
 Console.WriteLine($"Solution 1: {solver.SolveFirstChallenge(lines)}");
 Console.WriteLine($"Solution 2: {solver.SolveSecondChallenge(lines)}");
