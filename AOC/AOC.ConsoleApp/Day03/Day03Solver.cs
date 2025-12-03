@@ -1,7 +1,9 @@
-﻿namespace AOC.ConsoleApp.Day03;
+﻿
+namespace AOC.ConsoleApp.Day03;
 
 /// <summary>
-/// Part 1: 16946
+/// Solution 1: 16946
+/// Solution 2: 168992
 /// </summary>
 
 internal class Day03Solver : ISolver
@@ -14,20 +16,27 @@ internal class Day03Solver : ISolver
 
     public string SolveFirstChallenge()
     {
-        return _banks.Sum(GetLargestPossibleJoltage).ToString();
+        return _banks
+            .Sum(bank => int.Parse(GetLargestPossibleJoltage(bank, 2)))
+            .ToString();
     }
 
     public string SolveSecondChallenge()
     {
-        throw new NotImplementedException();
+        return _banks
+            .Select(bank => UInt128.Parse(GetLargestPossibleJoltage(bank, numberOfDigits: 12)))
+            .Aggregate((UInt128)0, (sum, joltage) => sum + joltage)
+            .ToString();
     }
 
-    private int GetLargestPossibleJoltage(string bank)
+    private string GetLargestPossibleJoltage(string bank, int numberOfDigits)
     {
-        var firstJoltageDigit = GetGreatestDigit(bank, startIndex: 0, endIndex: bank.Length - 1);
+        if (numberOfDigits == 1) return "" + GetGreatestDigit(bank, 0, bank.Length);
+
+        var firstJoltageDigit = GetGreatestDigit(bank, startIndex: 0, endIndex: bank.Length - (numberOfDigits - 1));
         var firstOccurranceOfFirstDigit = bank.IndexOf(firstJoltageDigit);
-        var secondJoltageDigit = GetGreatestDigit(bank, startIndex: firstOccurranceOfFirstDigit + 1, bank.Length);
-        return int.Parse("" + firstJoltageDigit + secondJoltageDigit);
+        var remainingJoltageDigits = GetLargestPossibleJoltage(bank[(firstOccurranceOfFirstDigit + 1)..], numberOfDigits - 1);
+        return "" + firstJoltageDigit + remainingJoltageDigits;
     }
 
     private static char GetGreatestDigit(string bank, int startIndex, int endIndex)
