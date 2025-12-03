@@ -3,7 +3,7 @@ namespace AOC.ConsoleApp.Day03;
 
 /// <summary>
 /// Solution 1: 16946
-/// Solution 2: 168992
+/// Solution 2: 168627047606506
 /// </summary>
 
 internal class Day03Solver : ISolver
