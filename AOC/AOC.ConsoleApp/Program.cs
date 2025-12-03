@@ -4,10 +4,10 @@ using AOC.ConsoleApp.Day02;
 var lines = ReadLines("../../../Day02/input.txt");
 //var lines = ReadLines("../../../Day02/input_small.txt");
 
-ISolver solver = new Day02Solver();
+ISolver solver = new Day02Solver(lines);
 
-Console.WriteLine($"Solution 1: {solver.SolveFirstChallenge(lines)}");
-Console.WriteLine($"Solution 2: {solver.SolveSecondChallenge(lines)}");
+Console.WriteLine($"Solution 1: {solver.SolveFirstChallenge()}");
+Console.WriteLine($"Solution 2: {solver.SolveSecondChallenge()}");
 
 IEnumerable<string> ReadLines(string fileName)
 {

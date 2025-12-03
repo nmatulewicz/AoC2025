@@ -1,14 +1,18 @@
 ﻿internal class Day01Solver : ISolver
 {
-    // 6022 TOO high
+    protected IEnumerable<Instruction> _instructions;
 
-    public string SolveFirstChallenge(IEnumerable<string> lines)
+    public Day01Solver(IEnumerable<string> lines)
     {
-        var instructions = lines.Select(ToInstruction);
+        _instructions = lines.Select(ToInstruction);
+    }
+
+    public string SolveFirstChallenge()
+    {
         var dial = new Dial();
 
         var zeroCount = 0;
-        foreach (var instruction in instructions)
+        foreach (var instruction in _instructions)
         {
             dial.Execute(instruction);
             if (dial.PointerValue == 0) zeroCount++;
@@ -17,12 +21,11 @@
         return zeroCount.ToString();
     }
 
-    public string SolveSecondChallenge(IEnumerable<string> lines)
+    public string SolveSecondChallenge()
     {
-        var instructions = lines.Select(ToInstruction);
         var dial = new Dial();
 
-        foreach (var instruction in instructions)
+        foreach (var instruction in _instructions)
         {
             dial.Execute(instruction);
         }

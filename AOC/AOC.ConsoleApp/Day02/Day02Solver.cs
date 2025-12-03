@@ -10,19 +10,24 @@ namespace AOC.ConsoleApp.Day02;
 
 internal class Day02Solver : ISolver
 {
-    public string SolveFirstChallenge(IEnumerable<string> lines)
+    private IEnumerable<Range> _ranges;
+
+    public Day02Solver(IEnumerable<string> lines)
     {
         var rangeStrings = lines.First().Split(',');
-        var ranges = rangeStrings.Select(str =>
+        _ranges = rangeStrings.Select(str =>
         {
             var splittedString = str.Split('-');
             var start = UInt128.Parse(splittedString[0]);
             var end = UInt128.Parse(splittedString[1]);
             return new Range { Start = start, End = end };
         });
+    }
 
+    public string SolveFirstChallenge()
+    { 
         UInt128 sum = 0;
-        foreach (var range in ranges)
+        foreach (var range in _ranges)
         {
             var invalidCodes = range.GetInvalidCodes(numberOfRepetitions: 2);
             Console.WriteLine(string.Join(", ", invalidCodes));
@@ -31,19 +36,10 @@ internal class Day02Solver : ISolver
         return sum.ToString();
     }
 
-    public string SolveSecondChallenge(IEnumerable<string> lines)
+    public string SolveSecondChallenge()
     {
-        var rangeStrings = lines.First().Split(',');
-        var ranges = rangeStrings.Select(str =>
-        {
-            var splittedString = str.Split('-');
-            var start = UInt128.Parse(splittedString[0]);
-            var end = UInt128.Parse(splittedString[1]);
-            return new Range { Start = start, End = end };
-        });
-
         UInt128 sum = 0;
-        foreach (var range in ranges)
+        foreach (var range in _ranges)
         {
             var invalidCodes = range.GetInvalidCodes();
             Console.WriteLine(string.Join(", ", invalidCodes));
