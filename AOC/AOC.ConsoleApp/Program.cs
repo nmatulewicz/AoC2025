@@ -1,9 +1,9 @@
-﻿using AOC.ConsoleApp.Day04;
+﻿using AOC.ConsoleApp.Day07;
 
-var lines = ReadLines("../../../Day04/input.txt");
-//var lines = ReadLines("../../../Day04/input_small.txt");
+var lines = ReadLines("../../../Day07/input.txt");
+//var lines = ReadLines("../../../Day07/input_small.txt");
 
-ISolver solver = new Day04Solver(lines);
+ISolver solver = new Day07Solver(lines);
 
 Console.WriteLine($"Solution 1: {solver.SolveFirstChallenge()}");
 Console.WriteLine($"Solution 2: {solver.SolveSecondChallenge()}");
