@@ -4,7 +4,7 @@ namespace AOC.ConsoleApp.Day08;
 
 /// <summary>
 /// Solution 1: 42315
-/// Solution 2:
+/// Solution 2: 8079278220
 /// </summary>
 
 internal class Day08Solver : ISolver
@@ -31,17 +31,41 @@ internal class Day08Solver : ISolver
     {
         FillPriorityQueue();
         MakeClosestConnections(1000);
+        int product = GetProductOfThreeGreatestCircuitSizes();
+        return product.ToString();
+    }
 
+    public string SolveSecondChallenge()
+    {
+        var nextToConnect = _closestVectors.Peek();
+        while (!AreAllVectorsConnected())
+        {
+            nextToConnect = _closestVectors.Peek();
+            MakeClosestConnections(1);
+        }
+
+        (var vector1, var vector2) = nextToConnect;
+        return ((UInt128) vector1.X * (UInt128) vector2.X).ToString();
+    }
+
+    private bool AreAllVectorsConnected()
+    {
+        var circuit = _circuitPerVector.Values.First();
+        return circuit.Count == _vectors.Count();
+    }
+
+    private int GetProductOfThreeGreatestCircuitSizes()
+    {
         var circuits = _circuitPerVector.Values.Distinct();
         var threeLargestCircuitSizes = circuits
             .Select(circuit => circuit.Count)
             .OrderDescending()
             .Take(3);
 
-        var product = threeLargestCircuitSizes.ElementAt(0) 
-            * threeLargestCircuitSizes.ElementAt(1) 
+        var product = threeLargestCircuitSizes.ElementAt(0)
+            * threeLargestCircuitSizes.ElementAt(1)
             * threeLargestCircuitSizes.ElementAt(2);
-        return product.ToString();
+        return product;
     }
 
     private void MakeClosestConnections(int n = 1000)
@@ -108,10 +132,5 @@ internal class Day08Solver : ISolver
                 _closestVectors.Enqueue((vector1, vector2), distance);
             }
         }
-    }
-
-    public string SolveSecondChallenge()
-    {
-        return "";
     }
 }
